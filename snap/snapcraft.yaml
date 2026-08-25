@@ -28,3 +28,4 @@ apps:
     plugs:
       - network
       - network-bind
+      - home
