@@ -18,3 +18,10 @@ parts:
     source: https://github.com/ggml-org/llama.cpp/archive/refs/tags/v0.2.0.tar.gz
     source-checksum: sha256/72e6c3e70c584f84e61697e449ee388f43458d662ef8f3bd3f6b4a054c947958
     plugin: cmake
+    stage-packages:
+      - libgomp1
+apps:
+  jakechal-llama-cpp:
+    command: usr/local/bin/llama-cli
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/local/lib
