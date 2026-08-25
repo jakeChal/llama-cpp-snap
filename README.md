@@ -14,3 +14,6 @@ if you see a shared lib failure:
         - `unsquashfs <nameOf.snap>`
         - `find squashfs-root -name "libMissing*"`
         - Adapt `LD_LIBRARY_PATH` in the `apps` section accordingly
+- Setting up interfaces:
+    - To verify the issue is related to a missing interface, check `jouranlctl`, e.g.
+    `journalctl -xe | grep -i denied` and verify that the issue is AppArmor related

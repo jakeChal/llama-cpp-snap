@@ -6,7 +6,7 @@ description: |
   enable LLM (and VLM) inference with minimal setup and state-of-the-art
   performance on a wide range of hardware - locally and in the cloud.
 grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict
 
 parts:
   build-deps:
@@ -25,3 +25,6 @@ apps:
     command: usr/local/bin/llama-cli
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/local/lib
+    plugs:
+      - network
+      - network-bind
