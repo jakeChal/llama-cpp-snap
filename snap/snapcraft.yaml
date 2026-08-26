@@ -20,15 +20,17 @@ parts:
     plugin: cmake
     cmake-generator: Ninja
     cmake-parameters:
-      - -DBUILD_TESTING=OFF
       - -DCMAKE_BUILD_TYPE=Release
+      - -DLLAMA_BUILD_TESTS=OFF
+      - -DLLAMA_BUILD_EXAMPLES=OFF
+      - -DCMAKE_INSTALL_PREFIX=/usr
     stage-packages:
       - libgomp1
 apps:
   jakechal-llama-cpp:
-    command: usr/local/bin/llama-cli
+    command: usr/bin/llama-cli
     environment:
-      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/local/lib
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu
     plugs:
       - network
       - network-bind
