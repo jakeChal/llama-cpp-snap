@@ -1,6 +1,6 @@
 name: jakechal-llama-cpp
 base: core24
-version: '0.1'
+version: '0.2'
 summary: LLM inference in C/C++
 description: |
   enable LLM (and VLM) inference with minimal setup and state-of-the-art
@@ -26,6 +26,15 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
     stage-packages:
       - libgomp1
+    prime:
+      - usr/bin/llama-cli
+      - usr/lib/x86_64-linux-gnu/*.so*
+      - -usr/lib/x86_64-linux-gnu/libllama-batched-bench*
+      - -usr/lib/x86_64-linux-gnu/libllama-bench*
+      - -usr/lib/x86_64-linux-gnu/libllama-completion*
+      - -usr/lib/x86_64-linux-gnu/libllama-fit-params*
+      - -usr/lib/x86_64-linux-gnu/libllama-perplexity*
+      - -usr/lib/x86_64-linux-gnu/libllama-quantize*
 apps:
   jakechal-llama-cpp:
     command: usr/bin/llama-cli
