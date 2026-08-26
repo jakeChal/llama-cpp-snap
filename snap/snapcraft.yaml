@@ -12,12 +12,16 @@ parts:
   build-deps:
     plugin: nil
     build-packages:
-      - build-essential
+      - ninja-build
       - libssl-dev
   llama-cpp:
     source: https://github.com/ggml-org/llama.cpp/archive/refs/tags/v0.2.0.tar.gz
     source-checksum: sha256/72e6c3e70c584f84e61697e449ee388f43458d662ef8f3bd3f6b4a054c947958
     plugin: cmake
+    cmake-generator: Ninja
+    cmake-parameters:
+      - -DBUILD_TESTING=OFF
+      - -DCMAKE_BUILD_TYPE=Release
     stage-packages:
       - libgomp1
 apps:
