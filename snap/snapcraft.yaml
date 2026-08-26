@@ -14,14 +14,19 @@ parts:
     build-packages:
       - ninja-build
       - libssl-dev
-  llama-cpp:
+  llama-cli:
     source: https://github.com/ggml-org/llama.cpp/archive/refs/tags/v0.2.0.tar.gz
     source-checksum: sha256/72e6c3e70c584f84e61697e449ee388f43458d662ef8f3bd3f6b4a054c947958
     plugin: cmake
     cmake-generator: Ninja
-    cmake-parameters:
-      - -DBUILD_TESTING=OFF
-      - -DCMAKE_BUILD_TYPE=Release
+    override-build: |
+      cmake -S "$CRAFT_PART_SRC" -B "$CRAFT_PART_BUILD" -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLLAMA_BUILD_TESTS=OFF \
+        -DLLAMA_BUILD_EXAMPLES=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr
+      cmake --build "$CRAFT_PART_BUILD" --target llama-cli -j"$CRAFT_PARALLEL_BUILD_COUNT"
+      cmake --install "$CRAFT_PART_BUILD" --prefix "$CRAFT_PART_INSTALL/usr"
     stage-packages:
       - libgomp1
 apps:
