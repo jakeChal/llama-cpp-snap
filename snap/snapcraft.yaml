@@ -1,0 +1,46 @@
+name: jakechal-llama-cpp
+base: core24
+version: '0.2'
+summary: LLM inference in C/C++
+description: |
+  enable LLM (and VLM) inference with minimal setup and state-of-the-art
+  performance on a wide range of hardware - locally and in the cloud.
+grade: devel
+confinement: strict
+
+parts:
+  build-deps:
+    plugin: nil
+    build-packages:
+      - ninja-build
+      - libssl-dev
+  llama-cpp:
+    source: https://github.com/ggml-org/llama.cpp/archive/refs/tags/v0.2.0.tar.gz
+    source-checksum: sha256/72e6c3e70c584f84e61697e449ee388f43458d662ef8f3bd3f6b4a054c947958
+    plugin: cmake
+    cmake-generator: Ninja
+    cmake-parameters:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DLLAMA_BUILD_TESTS=OFF
+      - -DLLAMA_BUILD_EXAMPLES=OFF
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    stage-packages:
+      - libgomp1
+    prime:
+      - usr/bin/llama-cli
+      - usr/lib/x86_64-linux-gnu/*.so*
+      - -usr/lib/x86_64-linux-gnu/libllama-batched-bench*
+      - -usr/lib/x86_64-linux-gnu/libllama-bench*
+      - -usr/lib/x86_64-linux-gnu/libllama-completion*
+      - -usr/lib/x86_64-linux-gnu/libllama-fit-params*
+      - -usr/lib/x86_64-linux-gnu/libllama-perplexity*
+      - -usr/lib/x86_64-linux-gnu/libllama-quantize*
+apps:
+  jakechal-llama-cpp:
+    command: usr/bin/llama-cli
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu
+    plugs:
+      - network
+      - network-bind
+      - home
