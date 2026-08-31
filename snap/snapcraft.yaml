@@ -15,8 +15,8 @@ parts:
       - ninja-build
       - libssl-dev
   llama-cpp:
-    source: https://github.com/ggml-org/llama.cpp/archive/refs/tags/v0.2.0.tar.gz
-    source-checksum: sha256/72e6c3e70c584f84e61697e449ee388f43458d662ef8f3bd3f6b4a054c947958
+    source: https://github.com/ggml-org/llama.cpp.git
+    source-commit: c1d0e7a004015f23bc0233470b747b596f29b264 # v0.3.0
     plugin: cmake
     cmake-generator: Ninja
     cmake-parameters:
