@@ -26,20 +26,22 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
     stage-packages:
       - libgomp1
+    organize:
+      usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/*.so*: usr/lib/
     prime:
       - usr/bin/llama-cli
-      - usr/lib/x86_64-linux-gnu/*.so*
-      - -usr/lib/x86_64-linux-gnu/libllama-batched-bench*
-      - -usr/lib/x86_64-linux-gnu/libllama-bench*
-      - -usr/lib/x86_64-linux-gnu/libllama-completion*
-      - -usr/lib/x86_64-linux-gnu/libllama-fit-params*
-      - -usr/lib/x86_64-linux-gnu/libllama-perplexity*
-      - -usr/lib/x86_64-linux-gnu/libllama-quantize*
+      - usr/lib/*.so*
+      - -usr/lib/libllama-batched-bench*
+      - -usr/lib/libllama-bench*
+      - -usr/lib/libllama-completion*
+      - -usr/lib/libllama-fit-params*
+      - -usr/lib/libllama-perplexity*
+      - -usr/lib/libllama-quantize*
 apps:
   jakechal-llama-cpp:
     command: usr/bin/llama-cli
     environment:
-      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu
+      LD_LIBRARY_PATH: $SNAP/usr/lib
     plugs:
       - network
       - network-bind
